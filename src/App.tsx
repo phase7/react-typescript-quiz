@@ -4,6 +4,8 @@ import {fetchQuizQuestions} from './API'
 import QuestionCard from "./components/QuestionCardComponent"; 
 //types
 import {Difficulty, QuestionState} from "./API"
+//style
+import {GlobalStyle, Wrapper} from "./App.styles"
 
 export type AnswerObject = {
   question : string;
@@ -73,10 +75,12 @@ function App() {
   }
 
   return (
-    <div className="App">
+    <>
+    <GlobalStyle />
+    <Wrapper>
       <h1> Quick Quiz </h1>
       {gameover || userAnswers.length === TOTAL_QUESTIONS? <button className="start" onClick={startTrivia}>Start</button> : null}
-      {!gameover && <p className="score">You've Scored: </p> }
+      {!gameover && <p className="score">You've Scored: {score} </p> }
       {loading && <p className="loading">Loading questions, please wait...</p>}
 
       {!loading && !gameover &&
@@ -89,11 +93,12 @@ function App() {
       handleClickAnswer={checkAnswer}
       /> }
       {!gameover && !loading && userAnswers.length === number + 1 && number !== TOTAL_QUESTIONS - 1 ? (
-          <button className='next' onClick={nextQuestion}>
+          <button className="next" onClick={nextQuestion}>
             Next Question
           </button>
         ) : null}
-    </div>
+    </Wrapper>
+    </>
   );
 }
 
